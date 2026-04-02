@@ -113,15 +113,124 @@
     .section-title:first-child { margin-top: 0; }
 
     /* ── CARDS GRID ── */
-    .grid-3 { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; }
-    .grid-2 { display: grid; grid-template-columns: repeat(2,1fr); gap: 20px; }
-    .grid-5 { display: grid; grid-template-columns: repeat(5,1fr); gap: 16px; }
-    @media(max-width:900px){
-      .grid-3,.grid-5{grid-template-columns:repeat(2,1fr)}
-      .grid-2{grid-template-columns:1fr}
-      .main{padding:24px 20px 48px}
-      .tabs-bar{padding:0 20px}
-      .header{padding:24px 20px}
+    .grid-3      { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; }
+    .grid-2      { display: grid; grid-template-columns: repeat(2,1fr); gap: 20px; }
+    .grid-4      { display: grid; grid-template-columns: repeat(4,1fr); gap: 12px; }
+    .grid-5      { display: grid; grid-template-columns: repeat(5,1fr); gap: 16px; }
+    .grid-budget { display: grid; grid-template-columns: 1fr 2fr; gap: 20px; margin-top: 20px; }
+    .grid-charts { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+
+    /* ── GA4 SPLIT CARD ── */
+    .ga4-split {
+      display: flex; align-items: center;
+      justify-content: space-between;
+      text-align: left; padding: 20px 24px;
+    }
+    .ga4-split-left  { }
+    .ga4-split-right { text-align: right; flex-shrink: 0; }
+
+    /* ══════════════════════
+       RESPONSIVE BREAKPOINTS
+    ══════════════════════ */
+
+    /* Tablet  ≤ 1024px */
+    @media (max-width: 1024px) {
+      .grid-5      { grid-template-columns: repeat(3,1fr); }
+      .grid-budget { grid-template-columns: 1fr 1fr; }
+    }
+
+    /* Mobile  ≤ 768px */
+    @media (max-width: 768px) {
+      /* Header */
+      .header { padding: 18px 16px 16px; }
+      .header-inner { gap: 12px; }
+      .header-title h1 { font-size: 17px; }
+      .header-title p  { font-size: 11px; }
+      .logo-box { width: 40px; height: 40px; font-size: 11px; border-radius: 10px; }
+      .header-badges { gap: 6px; }
+      .badge { padding: 5px 11px; font-size: 11px; }
+
+      /* Tabs — scrollable, no wrap */
+      .tabs-bar {
+        padding: 0 4px;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        justify-content: flex-start;
+      }
+      .tabs-bar::-webkit-scrollbar { display: none; }
+      .tab { padding: 13px 14px; font-size: 12px; white-space: nowrap; flex-shrink: 0; }
+
+      /* Main */
+      .main { padding: 20px 16px 56px; }
+
+      /* Grids */
+      .grid-3      { grid-template-columns: 1fr; }
+      .grid-2      { grid-template-columns: 1fr; }
+      .grid-4      { grid-template-columns: repeat(2,1fr); }
+      .grid-5      { grid-template-columns: repeat(2,1fr); }
+      .grid-budget { grid-template-columns: 1fr; }
+      .grid-charts { grid-template-columns: 1fr; }
+
+      /* KPI cards */
+      .kpi-value  { font-size: 30px; }
+      .kpi-card   { padding: 22px 18px 20px; }
+
+      /* Budget */
+      .budget-big { font-size: 34px; }
+      .budget-card { padding: 22px; }
+
+      /* Platform cards */
+      .platform-card { padding: 20px; }
+      .m-value { font-size: 18px; }
+
+      /* Charts */
+      .chart-card { padding: 20px; }
+      .chart-wrap { max-height: none !important; }
+
+      /* Funnel — stack metrics below info */
+      .funnel-card  { padding: 20px 16px; }
+      .funnel-step  { flex-wrap: wrap; gap: 12px; padding: 16px 0; }
+      .funnel-info  { flex: 1 1 calc(100% - 56px); }
+      .funnel-metrics {
+        width: 100%; display: flex;
+        justify-content: flex-start; gap: 20px;
+        padding-left: 56px;
+      }
+      .funnel-m { text-align: left; }
+      .funnel-m .fm-val { font-size: 18px; }
+
+      /* Total row — compact */
+      .total-row { gap: 8px 16px; padding: 14px 16px; }
+      .total-row .tr-val   { font-size: 16px; }
+      .total-row .tr-label { font-size: 9px; }
+
+      /* GA4 split card */
+      .ga4-split { flex-wrap: wrap; gap: 4px; }
+      .ga4-split-right { width: 100%; text-align: left; }
+      .ga4-highlight .gh-val { font-size: 26px; }
+
+      /* Audience */
+      .audience-card { padding: 16px; }
+
+      /* Section titles */
+      .section-title { font-size: 10px; margin-top: 28px; margin-bottom: 16px; }
+    }
+
+    /* Small mobile  ≤ 480px */
+    @media (max-width: 480px) {
+      .header-title h1 { font-size: 14px; letter-spacing: 0; }
+      .badge-budget    { display: none; }
+
+      .kpi-value  { font-size: 26px; }
+      .budget-big { font-size: 28px; }
+
+      .grid-5 { grid-template-columns: 1fr 1fr; }
+
+      .funnel-metrics { padding-left: 0; flex-wrap: wrap; gap: 12px; }
+
+      .total-row .tr-val { font-size: 14px; }
+      .ga4-highlight .gh-val { font-size: 22px; }
     }
 
     /* ── KPI PROGRESS CARD ── */
@@ -432,7 +541,7 @@
       </div>
     </div>
 
-    <div style="display:grid; grid-template-columns: 1fr 2fr; gap:20px; margin-top: 20px;">
+    <div class="grid-budget">
       <div class="budget-card fade-in">
         <h3>Presupuesto ejecutado</h3>
         <div class="budget-big">18%</div>
@@ -446,7 +555,7 @@
         </div>
       </div>
 
-      <div style="display:grid; grid-template-columns: repeat(4, 1fr); gap:12px;">
+      <div class="grid-4">
         <div class="stat-mini fade-in" data-tooltip="Clics totales de la semana">
           <div class="label">Clics</div>
           <div class="value" data-counter="630" data-format="number">0</div>
@@ -606,7 +715,7 @@
     </div>
 
     <p class="section-title">Distribución de presupuesto semanal</p>
-    <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+    <div class="grid-charts">
       <div class="chart-card fade-in">
         <h3>Inversión por plataforma</h3>
         <p>$298.524 totales — 18% del presupuesto mensual</p>
@@ -809,22 +918,22 @@
     </div>
 
     <div class="grid-2" style="gap:16px; margin-bottom:20px;">
-      <div class="ga4-highlight fade-in" style="display:flex; align-items:center; justify-content:space-between; text-align:left; padding:20px 24px;">
-        <div>
+      <div class="ga4-highlight ga4-split fade-in">
+        <div class="ga4-split-left">
           <div class="gh-label" style="margin-bottom:6px">Impresiones acumuladas</div>
           <div class="gh-val" style="font-size:26px" data-counter="640356" data-format="number">0</div>
         </div>
-        <div style="text-align:right">
+        <div class="ga4-split-right">
           <div style="font-size:28px; font-weight:900; color: var(--btg-primary)">13%</div>
           <div style="font-size:11px; color:var(--text-muted)">de meta 5.000.000</div>
         </div>
       </div>
-      <div class="ga4-highlight fade-in" style="display:flex; align-items:center; justify-content:space-between; text-align:left; padding:20px 24px;">
-        <div>
+      <div class="ga4-highlight ga4-split fade-in">
+        <div class="ga4-split-left">
           <div class="gh-label" style="margin-bottom:6px">Sesiones landing ETF (acum.)</div>
           <div class="gh-val" style="font-size:26px" data-counter="2160" data-format="number">0</div>
         </div>
-        <div style="text-align:right">
+        <div class="ga4-split-right">
           <div style="font-size:28px; font-weight:900; color: var(--btg-green)">20%</div>
           <div style="font-size:11px; color:var(--text-muted)">de meta 11.000</div>
         </div>
