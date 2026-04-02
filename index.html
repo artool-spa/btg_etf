@@ -7,6 +7,100 @@
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <!-- Firebase SDK -->
+  <script type="module">
+    import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js';
+    import { getAuth, signInWithPopup, signOut, GoogleAuthProvider, onAuthStateChanged }
+      from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js';
+    import { getFirestore, doc, getDoc, collection, query, orderBy, limit, getDocs }
+      from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js';
+
+    const firebaseConfig = {
+      apiKey:            "AIzaSyATwsu7a-6rxyScxyT8LwzpMP06abCPlds",
+      authDomain:        "btg---etf.firebaseapp.com",
+      projectId:         "btg---etf",
+      storageBucket:     "btg---etf.firebasestorage.app",
+      messagingSenderId: "237733192296",
+      appId:             "1:237733192296:web:425217e6b8a104d20651dd"
+    };
+
+    const app      = initializeApp(firebaseConfig);
+    const auth     = getAuth(app);
+    const db       = getFirestore(app);
+    const provider = new GoogleAuthProvider();
+
+    // ── AUTH STATE ──
+    onAuthStateChanged(auth, user => {
+      if (user) {
+        showDashboard(user);
+        loadGA4Data();
+      } else {
+        showLoginScreen();
+      }
+    });
+
+    window.doLogin  = () => signInWithPopup(auth, provider).catch(e => alert('Error al iniciar sesión.'));
+    window.doLogout = () => signOut(auth);
+
+    function showLoginScreen() {
+      document.getElementById('login-screen').style.display = 'flex';
+      document.getElementById('app-content').style.display  = 'none';
+    }
+
+    function showDashboard(user) {
+      document.getElementById('login-screen').style.display = 'none';
+      document.getElementById('app-content').style.display  = 'block';
+      document.getElementById('user-name').textContent      = user.displayName || user.email;
+      const avatar = document.getElementById('user-avatar');
+      if (avatar && user.photoURL) avatar.src = user.photoURL;
+    }
+
+    // ── CARGAR DATOS GA4 DESDE FIRESTORE ──
+    async function loadGA4Data() {
+      try {
+        const weeksRef = collection(db, 'campaigns', 'etf-generico', 'weeks');
+        const q        = query(weeksRef, orderBy('start_date', 'desc'), limit(1));
+        const snap     = await getDocs(q);
+        if (snap.empty) return;
+
+        const week        = snap.docs[0].data();
+        const summarySnap = await getDoc(doc(db, 'campaigns', 'etf-generico'));
+        const summary     = summarySnap.exists() ? summarySnap.data() : {};
+
+        renderGA4(week, summary);
+      } catch (e) {
+        console.error('Error GA4:', e);
+      }
+    }
+
+    function renderGA4(week, summary) {
+      const fmt = n => (n || 0).toLocaleString('es-CL');
+      const set = (id, v) => { const el = document.getElementById(id); if (el) el.textContent = v; };
+
+      set('ga4-usuarios',        fmt(week.total_users));
+      set('ga4-sesiones',        fmt(week.total_sessions));
+      set('ga4-duracion',        week.total_avg_duration || '00:00');
+      set('ga4-sesiones-acum',   fmt(summary.sessions_acum));
+      set('ga4-usuarios-acum',   fmt(summary.users_acum));
+      set('ga4-pct-sesiones',    summary.sessions_acum ? Math.round((summary.sessions_acum / 11000) * 100) + '%' : '0%');
+      set('ga4-funnel-usuarios', fmt(week.total_users));
+      set('ga4-funnel-sesiones', fmt(week.total_sessions));
+      set('ga4-btn-usuarios',    fmt(week.button_users));
+      set('ga4-btn-eventos',     fmt(week.button_events));
+      if (week.period) set('ga4-periodo', '📅 ' + week.period);
+
+      // Detalle por campaña
+      const container = document.getElementById('ga4-campaigns');
+      if (container && week.campaigns?.length) {
+        container.innerHTML = week.campaigns.map(c => `
+          <div class="stat-mini fade-in">
+            <div class="label" style="text-transform:none;letter-spacing:0">${c.name}</div>
+            <div class="value">${(c.sessions||0).toLocaleString('es-CL')}<span style="font-size:13px;font-weight:500"> ses.</span></div>
+            <div class="sub">${(c.users||0).toLocaleString('es-CL')} usuarios · ${c.avg_duration} prom.</div>
+          </div>`).join('');
+      }
+    }
+  </script>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
   <style>
     :root {
@@ -478,9 +572,68 @@
     /* Appear animation */
     .fade-in { opacity: 0; transform: translateY(16px); transition: opacity 0.5s, transform 0.5s; }
     .fade-in.visible { opacity: 1; transform: translateY(0); }
+  
+    /* ── LOGIN SCREEN ── */
+    #login-screen {
+      display: flex; align-items: center; justify-content: center;
+      min-height: 100vh;
+      background: linear-gradient(135deg, var(--btg-dark) 0%, var(--btg-primary) 100%);
+    }
+    .login-card {
+      background: #fff; border-radius: 24px;
+      padding: 48px 40px; text-align: center;
+      box-shadow: 0 24px 64px rgba(0,0,27,0.3);
+      max-width: 380px; width: 100%;
+    }
+    .login-logo {
+      width: 64px; height: 64px; border-radius: 16px;
+      background: var(--btg-primary); color: #fff;
+      font-size: 18px; font-weight: 900;
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 20px;
+    }
+    .login-card h2 { font-size: 22px; font-weight: 800; color: var(--btg-dark); margin-bottom: 6px; }
+    .login-card p  { font-size: 13px; color: var(--text-muted); margin-bottom: 32px; }
+    .btn-google {
+      display: flex; align-items: center; justify-content: center; gap: 10px;
+      width: 100%; padding: 13px 20px;
+      background: #fff; border: 2px solid var(--border);
+      border-radius: 12px; font-family: 'Inter', sans-serif;
+      font-size: 14px; font-weight: 600; color: var(--btg-dark);
+      cursor: pointer; transition: all 0.2s;
+    }
+    .btn-google:hover { border-color: var(--btg-primary); background: var(--btg-pale); }
+
+    /* ── USER BADGE ── */
+    .user-badge {
+      display: flex; align-items: center; gap: 8px;
+      background: rgba(255,255,255,0.12);
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 20px; padding: 5px 12px 5px 6px;
+      cursor: pointer; transition: background 0.2s;
+    }
+    .user-badge:hover { background: rgba(255,255,255,0.2); }
+    .user-badge img   { width: 26px; height: 26px; border-radius: 50%; object-fit: cover; }
+    .user-badge span  { font-size: 12px; font-weight: 600; color: #fff; max-width: 140px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
   </style>
 </head>
 <body>
+
+<!-- ═══════════ LOGIN ═══════════ -->
+<div id="login-screen">
+  <div class="login-card">
+    <div class="login-logo">BTG</div>
+    <h2>ETF Genérico</h2>
+    <p>Reporte semanal de campaña<br>Acceso solo para equipo BTG</p>
+    <button class="btn-google" onclick="doLogin()">
+      <svg width="18" height="18" viewBox="0 0 18 18"><path fill="#4285F4" d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844c-.209 1.125-.843 2.078-1.796 2.717v2.258h2.908c1.702-1.567 2.684-3.874 2.684-6.615z"/><path fill="#34A853" d="M9 18c2.43 0 4.467-.806 5.956-2.184l-2.908-2.258c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.711H.957v2.332A8.997 8.997 0 0 0 9 18z"/><path fill="#FBBC05" d="M3.964 10.707A5.41 5.41 0 0 1 3.682 9c0-.593.102-1.17.282-1.707V4.961H.957A8.996 8.996 0 0 0 0 9c0 1.452.348 2.827.957 4.039l3.007-2.332z"/><path fill="#EA4335" d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0A8.997 8.997 0 0 0 .957 4.961L3.964 6.293C4.672 4.166 6.656 3.58 9 3.58z"/></svg>
+      Continuar con Google
+    </button>
+  </div>
+</div>
+
+<!-- ═══════════ APP ═══════════ -->
+<div id="app-content" style="display:none">
 
 <!-- ═══════════ HEADER ═══════════ -->
 <header class="header">
@@ -493,10 +646,14 @@
       </div>
     </div>
     <div class="header-badges">
-      <span class="badge badge-week">📅 23 – 29 de Marzo</span>
+      <span class="badge badge-week" id="ga4-periodo">📅 23 – 29 de Marzo</span>
       <span class="badge badge-budget">💰 $298.524 ejecutados</span>
       <span class="badge badge-live">En curso</span>
       <button id="pdf-btn" class="pdf-btn" onclick="downloadPDF()">📄 Descargar PDF</button>
+      <div class="user-badge" onclick="doLogout()" title="Cerrar sesión">
+        <img id="user-avatar" src="" alt="">
+        <span id="user-name"></span>
+      </div>
     </div>
   </div>
 </header>
@@ -925,17 +1082,17 @@
     <div class="grid-3" style="gap:16px; margin-bottom:20px;">
       <div class="ga4-highlight fade-in">
         <div class="gh-icon">👥</div>
-        <div class="gh-val" data-counter="483" data-format="number">0</div>
+        <div class="gh-val" id="ga4-usuarios">—</div>
         <div class="gh-label">Usuarios únicos (semana)</div>
       </div>
       <div class="ga4-highlight fade-in">
         <div class="gh-icon">🔁</div>
-        <div class="gh-val" data-counter="524" data-format="number">0</div>
+        <div class="gh-val" id="ga4-sesiones">—</div>
         <div class="gh-label">Sesiones (semana)</div>
       </div>
       <div class="ga4-highlight fade-in">
         <div class="gh-icon">⏱️</div>
-        <div class="gh-val">10 min</div>
+        <div class="gh-val" id="ga4-duracion">—</div>
         <div class="gh-label">Duración media</div>
       </div>
     </div>
@@ -943,21 +1100,21 @@
     <div class="grid-2" style="gap:16px; margin-bottom:20px;">
       <div class="ga4-highlight ga4-split fade-in">
         <div class="ga4-split-left">
-          <div class="gh-label" style="margin-bottom:6px">Impresiones acumuladas</div>
-          <div class="gh-val" style="font-size:26px" data-counter="640356" data-format="number">0</div>
+          <div class="gh-label" style="margin-bottom:6px">Usuarios acumulados</div>
+          <div class="gh-val" style="font-size:26px" id="ga4-usuarios-acum">—</div>
         </div>
         <div class="ga4-split-right">
-          <div style="font-size:28px; font-weight:900; color: var(--btg-primary)">13%</div>
-          <div style="font-size:11px; color:var(--text-muted)">de meta 5.000.000</div>
+          <div style="font-size:28px; font-weight:900; color: var(--btg-primary)">GA4</div>
+          <div style="font-size:11px; color:var(--text-muted)">campaña ETF</div>
         </div>
       </div>
       <div class="ga4-highlight ga4-split fade-in">
         <div class="ga4-split-left">
-          <div class="gh-label" style="margin-bottom:6px">Sesiones landing ETF (acum.)</div>
-          <div class="gh-val" style="font-size:26px" data-counter="2160" data-format="number">0</div>
+          <div class="gh-label" style="margin-bottom:6px">Sesiones acumuladas</div>
+          <div class="gh-val" style="font-size:26px" id="ga4-sesiones-acum">—</div>
         </div>
         <div class="ga4-split-right">
-          <div style="font-size:28px; font-weight:900; color: var(--btg-green)">20%</div>
+          <div style="font-size:28px; font-weight:900; color: var(--btg-green)" id="ga4-pct-sesiones">—</div>
           <div style="font-size:11px; color:var(--text-muted)">de meta 11.000</div>
         </div>
       </div>
@@ -1010,11 +1167,11 @@
         </div>
         <div class="funnel-metrics">
           <div class="funnel-m">
-            <div class="fm-val" data-counter="483" data-format="number">0</div>
+            <div class="fm-val" id="ga4-funnel-usuarios">—</div>
             <div class="fm-label">Usuarios (sem.)</div>
           </div>
           <div class="funnel-m">
-            <div class="fm-val" data-counter="524" data-format="number">0</div>
+            <div class="fm-val" id="ga4-funnel-sesiones">—</div>
             <div class="fm-label">Sesiones (sem.)</div>
           </div>
         </div>
@@ -1024,23 +1181,30 @@
         <div class="funnel-num" style="background: linear-gradient(135deg, var(--btg-green), #34D399)">4</div>
         <div class="funnel-info">
           <h4>Botón "Ver Fondo" — Alta intención</h4>
-          <p>Usuarios que hacen clic en el botón de ingreso al fondo · <strong>9 min 46 seg</strong> promedio</p>
+          <p>Usuarios que hacen clic en el botón de ingreso al fondo</p>
         </div>
         <div class="funnel-metrics">
           <div class="funnel-m">
-            <div class="fm-val" data-counter="40" data-format="number" style="color: var(--btg-green)">0</div>
+            <div class="fm-val" id="ga4-btn-usuarios" style="color: var(--btg-green)">—</div>
             <div class="fm-label">Usuarios</div>
           </div>
           <div class="funnel-m">
-            <div class="fm-val" data-counter="43" data-format="number" style="color: var(--btg-green)">0</div>
-            <div class="fm-label">Sesiones</div>
+            <div class="fm-val" id="ga4-btn-eventos" style="color: var(--btg-green)">—</div>
+            <div class="fm-label">Eventos</div>
           </div>
         </div>
       </div>
 
     </div>
 
-    <p class="section-title" style="margin-top:36px">Productos ETF con tráfico</p>
+    <p class="section-title" style="margin-top:36px">Por campaña (semana)</p>
+    <div id="ga4-campaigns" class="grid-3" style="gap:14px; margin-bottom:28px;">
+      <div class="stat-mini" style="opacity:0.4; text-align:center; padding:24px">
+        <div class="label">Cargando datos…</div>
+      </div>
+    </div>
+
+    <p class="section-title">Productos ETF con tráfico</p>
     <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap:14px;">
       <div class="stat-mini fade-in">
         <div class="label">🇨🇱 ETF RF Chile</div>
@@ -1071,6 +1235,7 @@
 
   </section>
 </main>
+</div><!-- /#app-content -->
 
 <script>
 // ── TABS ──
