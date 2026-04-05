@@ -98,7 +98,6 @@
       set('ga4-sesiones',        fmt(week.total_sessions));
       set('ga4-duracion',        week.total_avg_duration || '00:00');
       set('resumen-duracion',    week.total_avg_duration || '—');
-      set('search-duracion',     week.total_avg_duration || '—');
 
       // ── Lectura ejecutiva dinámica ──
       const dur     = week.total_avg_duration || '—';
@@ -968,7 +967,7 @@
           </div>
           <div class="metric-item" style="grid-column:1/-1">
             <div class="m-label">Duración media de sesión</div>
-            <div class="m-value" id="search-duracion" style="color:var(--btg-green)">—</div>
+            <div class="m-value" style="color:var(--btg-green)">10:22</div>
           </div>
         </div>
         <div class="divider"></div>
