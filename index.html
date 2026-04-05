@@ -1339,9 +1339,9 @@
           <div class="a-label">CPM</div>
           <div class="a-value" data-raw="2048">$2.048</div>
         </div>
-        <div class="aud-stat">
+        <div class="aud-stat" data-metric="frecuencia">
           <div class="a-label">Frecuencia</div>
-          <div class="a-value">2.6x</div>
+          <div class="a-value" data-raw="2.6">2.6x</div>
           <div class="a-sub">por persona</div>
         </div>
         <div class="aud-stat" data-metric="sesiones">
@@ -1366,9 +1366,9 @@
           <div class="a-label">CPM</div>
           <div class="a-value" data-raw="676">$676</div>
         </div>
-        <div class="aud-stat">
+        <div class="aud-stat" data-metric="frecuencia">
           <div class="a-label">Frecuencia</div>
-          <div class="a-value">2.2x</div>
+          <div class="a-value" data-raw="2.2">2.2x</div>
           <div class="a-sub">por persona</div>
         </div>
         <div class="aud-stat" data-metric="sesiones">
@@ -1393,9 +1393,9 @@
           <div class="a-label">CPM</div>
           <div class="a-value" data-raw="1034">$1.034</div>
         </div>
-        <div class="aud-stat">
+        <div class="aud-stat" data-metric="frecuencia">
           <div class="a-label">Frecuencia</div>
-          <div class="a-value">2.8x</div>
+          <div class="a-value" data-raw="2.8">2.8x</div>
           <div class="a-sub">por persona</div>
         </div>
         <div class="aud-stat" data-metric="sesiones">
@@ -1420,9 +1420,9 @@
           <div class="a-label">CPM</div>
           <div class="a-value" data-raw="214">$214</div>
         </div>
-        <div class="aud-stat">
+        <div class="aud-stat" data-metric="frecuencia">
           <div class="a-label">Frecuencia</div>
-          <div class="a-value">1.2x</div>
+          <div class="a-value" data-raw="1.2">1.2x</div>
           <div class="a-sub">por persona</div>
         </div>
         <div class="aud-stat" data-metric="sesiones">
@@ -1447,9 +1447,9 @@
           <div class="a-label">CPM</div>
           <div class="a-value" data-raw="222">$222</div>
         </div>
-        <div class="aud-stat">
+        <div class="aud-stat" data-metric="frecuencia">
           <div class="a-label">Frecuencia</div>
-          <div class="a-value">1.1x</div>
+          <div class="a-value" data-raw="1.1">1.1x</div>
           <div class="a-sub">por persona</div>
         </div>
         <div class="aud-stat" data-metric="sesiones">
@@ -1807,7 +1807,7 @@ function initCharts() {
 
 // ── AUDIENCE WINNERS ──
 function highlightAudienceWinners() {
-  const metrics     = ['alcance', 'impresiones', 'sesiones'];
+  const metrics     = ['alcance', 'impresiones', 'sesiones', 'frecuencia'];
   const metricsLow  = ['cpm'];
 
   [...metrics, ...metricsLow].forEach(metric => {
