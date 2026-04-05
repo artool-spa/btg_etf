@@ -111,7 +111,7 @@
       const lectura = document.getElementById('lectura-ejecutiva');
       if (lectura) lectura.innerHTML = `
         En la primera semana de campaña, ETF Genérico acumula <strong>${fmtN(alc)} personas alcanzadas</strong> y
-        <strong>${fmtN(imp)} impresiones</strong> combinando agencia y otros medios
+        <strong>${fmtN(imp)} impresiones</strong> combinando Artool y Havas
         — avance del <strong>${pctImp}%</strong> y <strong>${pctAlc}%</strong> sobre las metas del mes.
         La <strong>frecuencia promedio es ${frec}</strong> impactos por persona (meta 2.7), y la
         <strong>duración media de ${dur} en landing</strong> refleja un alto nivel de intención e interés genuino en los ETF.
@@ -739,7 +739,7 @@
 <!-- ═══════════ TABS ═══════════ -->
 <nav class="tabs-bar">
   <div class="tab active" data-tab="resumen">📊 Resumen</div>
-  <div class="tab" data-tab="performance">🚀 Performance</div>
+  <div class="tab" data-tab="performance">📱 Paid Social</div>
   <div class="tab" data-tab="otros">📡 Otros Medios</div>
   <div class="tab" data-tab="audiencias">🎯 Audiencias</div>
   <div class="tab" data-tab="ga4">📈 GA4 & Analytics</div>
@@ -841,7 +841,7 @@
     <p class="section-title" style="margin-top:36px">Lectura ejecutiva</p>
     <div class="insight-box fade-in">
       <p id="lectura-ejecutiva">
-        En la primera semana de campaña, ETF Genérico acumula <strong>533.761 personas alcanzadas</strong> y <strong>933.944 impresiones</strong> combinando agencia y otros medios — avance sólido para ser solo la semana de lanzamiento.
+        En la primera semana de campaña, ETF Genérico acumula <strong>533.761 personas alcanzadas</strong> y <strong>933.944 impresiones</strong> combinando Artool y Havas — avance sólido para ser solo la semana de lanzamiento.
         Los <strong>1.453 clics totales</strong> y la <strong>duración media de 10 minutos en landing</strong> reflejan un alto nivel de intención e interés genuino en los ETF.
         Meta entrega el mayor volumen al menor costo (<strong>CPM $215</strong>), mientras DF Digital, Emol y Bio Bio amplían la cobertura editorial, y LinkedIn garantiza la llegada al <strong>perfil inversor profesional</strong>.
         El ritmo actual proyecta una cobertura del <strong>75%–100%+ de las metas mensuales</strong> de impresiones y alcance al final del mes.
@@ -853,6 +853,10 @@
   <!-- ══════ PERFORMANCE ══════ -->
   <section class="section" id="section-performance">
 
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:20px">
+      <span style="font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#fff;background:var(--btg-primary);padding:3px 12px;border-radius:20px">Paid Social</span>
+      <span style="font-size:12px;color:var(--text-muted)">Gestión: <strong style="color:var(--text-main)">Artool</strong></span>
+    </div>
     <p class="section-title">Resumen de semana · 23 – 29 marzo</p>
     <div class="total-row fade-in">
       <div class="tr-item"><div class="tr-val" data-counter="298524" data-format="money">$0</div><div class="tr-label">Inversión</div></div>
@@ -977,7 +981,7 @@
     <div class="grid-charts">
       <div class="chart-card fade-in">
         <h3>Inversión por plataforma</h3>
-        <p>$298.524 agencia · $978.654 otros medios — 34% del presupuesto mensual</p>
+        <p>$298.524 Artool · $978.654 Havas — 34% del presupuesto mensual</p>
         <div class="chart-wrap" style="max-height:240px">
           <canvas id="chartDonut"></canvas>
         </div>
@@ -996,6 +1000,10 @@
   <!-- ══════ OTROS MEDIOS ══════ -->
   <section class="section" id="section-otros">
 
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:20px">
+      <span style="font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#fff;background:#6B7280;padding:3px 12px;border-radius:20px">Otros Medios</span>
+      <span style="font-size:12px;color:var(--text-muted)">Gestión: <strong style="color:var(--text-main)">Havas</strong></span>
+    </div>
     <p class="section-title">Resumen de semana · 23 – 29 marzo</p>
     <div class="total-row fade-in">
       <div class="tr-item"><div class="tr-val" data-counter="978654" data-format="money">$0</div><div class="tr-label">Inversión</div></div>
@@ -1127,7 +1135,7 @@
 
     <p class="section-title">Nota</p>
     <div class="insight-box fade-in">
-      <p>Medios gestionados por <strong>agencia externa</strong>. Datos reportados semanalmente por el equipo de MKT. Incluyen pauta en display y contenido patrocinado en medios digitales chilenos de alta audiencia.</p>
+      <p>Medios gestionados por <strong>Havas</strong>. Datos reportados semanalmente por el equipo de MKT. Incluyen pauta en display y contenido patrocinado en medios digitales chilenos de alta audiencia.</p>
     </div>
 
   </section>
@@ -1613,7 +1621,7 @@ async function downloadPDF() {
   try {
     const { jsPDF } = window.jspdf;
     const tabs   = ['resumen', 'performance', 'otros', 'audiencias', 'ga4'];
-    const labels = ['Resumen', 'Performance · Plataformas', 'Otros Medios', 'Audiencias', 'GA4 & Analytics'];
+    const labels = ['Resumen', 'Paid Social · Artool', 'Otros Medios · Havas', 'Audiencias', 'GA4 & Analytics'];
 
     // Save current state
     const prevSection = document.querySelector('.section.active')?.id || 'section-resumen';
