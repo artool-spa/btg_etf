@@ -406,8 +406,8 @@
       .kpi-card   { padding: 22px 18px 20px; }
 
       /* Budget */
-      .budget-big { font-size: 34px; }
-      .budget-card { padding: 22px; }
+      .card-big { font-size: 34px; }
+      .budget-card, .projection-card { padding: 22px; }
 
       /* Platform cards */
       .platform-card { padding: 20px; }
@@ -452,7 +452,7 @@
       .status-inline   { display: none; }
 
       .kpi-value  { font-size: 26px; }
-      .budget-big { font-size: 28px; }
+      .card-big   { font-size: 28px; }
 
       .grid-5 { grid-template-columns: 1fr 1fr; }
 
@@ -624,22 +624,14 @@
       border-radius: 16px; padding: 28px; color: #fff;
       box-shadow: var(--shadow-lg); display: flex; flex-direction: column;
     }
-    .budget-card { background: linear-gradient(135deg, var(--btg-dark) 0%, var(--btg-primary) 100%); }
-    .budget-card h3 { font-size: 11px; text-transform: uppercase; letter-spacing: 1.2px; font-weight: 600; color: rgba(255,255,255,0.55); margin: 0 0 10px; line-height: 1; }
-    .budget-big { font-size: 42px; font-weight: 900; letter-spacing: -2px; line-height: 1; color: #fff; margin: 0 0 6px; }
-    .budget-sub { font-size: 12px; color: rgba(255,255,255,0.50); margin: 0 0 20px; }
-    .budget-bar-bg { height: 8px; background: rgba(255,255,255,0.12); border-radius: 99px; overflow: hidden; margin: 0 0 14px; }
-    .budget-bar-fill {
-      height: 100%; border-radius: 99px;
-      background: linear-gradient(90deg, var(--btg-gold), #fbbf24);
-      width: 0; transition: width 1.4s cubic-bezier(0.22,1,0.36,1);
-    }
-    .budget-legend { display: flex; justify-content: space-between; font-size: 11px; color: rgba(255,255,255,0.50); }
-    .budget-footer, .proj-footer {
-      font-size: 11px; color: rgba(255,255,255,0.40);
-      margin-top: auto; padding-top: 14px;
-      border-top: 1px solid rgba(255,255,255,0.10); line-height: 1.4;
-    }
+    .budget-card    { background: linear-gradient(135deg, var(--btg-dark) 0%, var(--btg-primary) 100%); }
+    .card-label     { font-size: 11px; text-transform: uppercase; letter-spacing: 1.2px; font-weight: 600; color: rgba(255,255,255,0.55); margin: 0 0 10px; line-height: 1; }
+    .card-big       { font-size: 42px; font-weight: 900; letter-spacing: -2px; line-height: 1; color: #fff; margin: 0 0 6px; }
+    .card-sub       { font-size: 12px; color: rgba(255,255,255,0.50); margin: 0 0 20px; }
+    .card-bar-bg    { height: 8px; background: rgba(255,255,255,0.12); border-radius: 99px; overflow: hidden; margin: 0 0 6px; }
+    .card-bar-fill  { height: 100%; border-radius: 99px; background: linear-gradient(90deg, var(--btg-gold), #fbbf24); width: 0; transition: width 1.4s cubic-bezier(0.22,1,0.36,1); }
+    .bar-legend     { display: flex; justify-content: space-between; font-size: 9px; color: rgba(255,255,255,0.30); margin: 0 0 8px; }
+    .card-footer    { font-size: 11px; color: rgba(255,255,255,0.40); margin-top: auto; padding-top: 14px; border-top: 1px solid rgba(255,255,255,0.10); }
 
     /* ── INSIGHT BOX ── */
     .insight-box {
@@ -771,12 +763,7 @@
     /* ── PROJECTION CARD ── */
     .projection-card { background: linear-gradient(135deg, var(--btg-primary) 0%, var(--btg-dark) 100%); transition: transform 0.2s, box-shadow 0.2s; }
     .projection-card:hover { transform: translateY(-2px); box-shadow: 0 12px 40px rgba(0,66,165,0.3); }
-    .proj-label { font-size: 11px; text-transform: uppercase; letter-spacing: 1.2px; font-weight: 600; color: rgba(255,255,255,0.55); margin: 0 0 10px; line-height: 1; }
-    .proj-value { font-size: 42px; font-weight: 900; letter-spacing: -2px; line-height: 1; color: #fff; margin: 0 0 6px; }
-    .proj-sub   { font-size: 12px; color: rgba(255,255,255,0.50); margin: 0 0 20px; }
-    .proj-bar-bg   { height: 8px; background: rgba(255,255,255,0.12); border-radius: 99px; overflow: hidden; margin: 0 0 14px; }
-    .proj-bar-fill { height: 100%; background: linear-gradient(90deg,#F59E0B,#fbbf24); border-radius: 99px; }
-    .proj-breakdown { display: flex; flex-direction: column; gap: 8px; }
+    .proj-breakdown { display: flex; flex-direction: column; gap: 8px; margin-top: 4px; }
     .proj-item { display: flex; justify-content: space-between; align-items: center; font-size: 11px; }
     .proj-item-label { color: rgba(255,255,255,0.50); }
     .proj-item-val   { font-weight: 700; font-size: 12px; }
@@ -938,27 +925,25 @@
 
     <div class="grid-budget">
       <div class="budget-card fade-in">
-        <h3>Presupuesto ejecutado</h3>
-        <div class="budget-big">34%</div>
-        <div class="budget-sub">$1.277.178 de $3.800.000</div>
-        <div class="budget-bar-bg">
-          <div class="budget-bar-fill" data-width="34"></div>
+        <div class="card-label">Presupuesto ejecutado</div>
+        <div class="card-big">34%</div>
+        <div class="card-sub">$1.277.178 de $3.800.000</div>
+        <div class="card-bar-bg">
+          <div class="card-bar-fill" data-width="34"></div>
         </div>
-        <div class="budget-legend">
+        <div class="bar-legend">
           <span>$0</span>
           <span>$3.800.000</span>
         </div>
-        <div class="budget-footer">
-          <span>Semana 1 de 4 · Presupuesto al 34%</span>
-        </div>
+        <div class="card-footer">Semana 1 de 4 · Presupuesto al 34%</div>
       </div>
 
       <!-- Proyección metas -->
       <div class="projection-card fade-in" data-tooltip="Estimación al cierre del mes según ritmo actual de la semana 1">
-        <div class="proj-label">Proyección metas</div>
-        <div class="proj-value" style="color:#fff">79%</div>
-        <div class="proj-sub">estimado al cierre del mes</div>
-        <div class="proj-bar-bg"><div class="proj-bar-fill" data-width="79"></div></div>
+        <div class="card-label">Proyección metas</div>
+        <div class="card-big">79%</div>
+        <div class="card-sub">estimado al cierre del mes</div>
+        <div class="card-bar-bg"><div class="card-bar-fill" data-width="79"></div></div>
         <div class="proj-breakdown">
           <div class="proj-item">
             <span class="proj-item-label">Impresiones</span>
@@ -977,6 +962,7 @@
             <span class="proj-item-val" style="color:#F59E0B">65%</span>
           </div>
         </div>
+        <div class="card-footer">Proyección basada en ritmo actual</div>
       </div>
 
       <!-- Clics + Views -->
@@ -1844,7 +1830,7 @@ async function downloadPDF() {
 
       // Force all animated elements to their final state
       sec.querySelectorAll('.fade-in').forEach(el => el.classList.add('visible'));
-      sec.querySelectorAll('.progress-bar-fill, .budget-bar-fill').forEach(el => {
+      sec.querySelectorAll('.progress-bar-fill, .card-bar-fill').forEach(el => {
         if (el.dataset.width) { el.style.transition = 'none'; el.style.width = el.dataset.width + '%'; }
       });
       sec.querySelectorAll('[data-counter]').forEach(el => {
