@@ -590,6 +590,12 @@
     }
     .tag-linkedin { background: #E7F4FF; color: #0A66C2; }
     .tag-meta     { background: #E7F0FF; color: #1877F2; }
+    .stat-winner .a-label { color: var(--btg-green); font-weight: 700; }
+    .stat-winner .a-value { color: var(--btg-green) !important; font-weight: 900; }
+    .stat-winner .a-value::after { content: ' ↑'; font-size: 11px; font-weight: 700; }
+    .stat-winner-low .a-label { color: var(--btg-green); font-weight: 700; }
+    .stat-winner-low .a-value { color: var(--btg-green) !important; font-weight: 900; }
+    .stat-winner-low .a-value::after { content: ' ↓'; font-size: 11px; font-weight: 700; }
 
     /* ── FUNNEL ── */
     .funnel-card {
@@ -1321,26 +1327,26 @@
       <div class="audience-card fade-in">
         <div class="aud-icon">🏦</div>
         <div class="aud-name">Banca Privada</div>
-        <div class="aud-stat">
+        <div class="aud-stat" data-metric="alcance">
           <div class="a-label">Alcance</div>
-          <div class="a-value" data-counter="13801" data-format="number">0</div>
+          <div class="a-value" data-counter="13801" data-format="number" data-raw="13801">0</div>
         </div>
-        <div class="aud-stat">
+        <div class="aud-stat" data-metric="impresiones">
           <div class="a-label">Impresiones</div>
-          <div class="a-value" data-counter="35964" data-format="number">0</div>
+          <div class="a-value" data-counter="35964" data-format="number" data-raw="35964">0</div>
         </div>
-        <div class="aud-stat">
+        <div class="aud-stat" data-metric="cpm">
           <div class="a-label">CPM</div>
-          <div class="a-value">$2.048</div>
+          <div class="a-value" data-raw="2048">$2.048</div>
         </div>
         <div class="aud-stat">
           <div class="a-label">Frecuencia</div>
           <div class="a-value">2.6x</div>
           <div class="a-sub">por persona</div>
         </div>
-        <div class="aud-stat">
+        <div class="aud-stat" data-metric="sesiones">
           <div class="a-label">Sesiones web</div>
-          <div class="a-value" data-counter="244" data-format="number">0</div>
+          <div class="a-value" data-counter="244" data-format="number" data-raw="244">0</div>
         </div>
         <span class="aud-tag tag-linkedin">LinkedIn</span>
       </div>
@@ -1348,26 +1354,26 @@
       <div class="audience-card fade-in">
         <div class="aud-icon">👔</div>
         <div class="aud-name">Altos Cargos</div>
-        <div class="aud-stat">
+        <div class="aud-stat" data-metric="alcance">
           <div class="a-label">Alcance</div>
-          <div class="a-value" data-counter="25718" data-format="number">0</div>
+          <div class="a-value" data-counter="25718" data-format="number" data-raw="25718">0</div>
         </div>
-        <div class="aud-stat">
+        <div class="aud-stat" data-metric="impresiones">
           <div class="a-label">Impresiones</div>
-          <div class="a-value" data-counter="58405" data-format="number">0</div>
+          <div class="a-value" data-counter="58405" data-format="number" data-raw="58405">0</div>
         </div>
-        <div class="aud-stat">
+        <div class="aud-stat" data-metric="cpm">
           <div class="a-label">CPM</div>
-          <div class="a-value">$676</div>
+          <div class="a-value" data-raw="676">$676</div>
         </div>
         <div class="aud-stat">
           <div class="a-label">Frecuencia</div>
           <div class="a-value">2.2x</div>
           <div class="a-sub">por persona</div>
         </div>
-        <div class="aud-stat">
+        <div class="aud-stat" data-metric="sesiones">
           <div class="a-label">Sesiones web</div>
-          <div class="a-value" data-counter="177" data-format="number">0</div>
+          <div class="a-value" data-counter="177" data-format="number" data-raw="177">0</div>
         </div>
         <span class="aud-tag tag-linkedin">LinkedIn</span>
       </div>
@@ -1375,26 +1381,26 @@
       <div class="audience-card fade-in">
         <div class="aud-icon">📊</div>
         <div class="aud-name">Asset Management</div>
-        <div class="aud-stat">
+        <div class="aud-stat" data-metric="alcance">
           <div class="a-label">Alcance</div>
-          <div class="a-value" data-counter="12088" data-format="number">0</div>
+          <div class="a-value" data-counter="12088" data-format="number" data-raw="12088">0</div>
         </div>
-        <div class="aud-stat">
+        <div class="aud-stat" data-metric="impresiones">
           <div class="a-label">Impresiones</div>
-          <div class="a-value" data-counter="34779" data-format="number">0</div>
+          <div class="a-value" data-counter="34779" data-format="number" data-raw="34779">0</div>
         </div>
-        <div class="aud-stat">
+        <div class="aud-stat" data-metric="cpm">
           <div class="a-label">CPM</div>
-          <div class="a-value">$1.034</div>
+          <div class="a-value" data-raw="1034">$1.034</div>
         </div>
         <div class="aud-stat">
           <div class="a-label">Frecuencia</div>
           <div class="a-value">2.8x</div>
           <div class="a-sub">por persona</div>
         </div>
-        <div class="aud-stat">
+        <div class="aud-stat" data-metric="sesiones">
           <div class="a-label">Sesiones web</div>
-          <div class="a-value" data-counter="171" data-format="number">0</div>
+          <div class="a-value" data-counter="171" data-format="number" data-raw="171">0</div>
         </div>
         <span class="aud-tag tag-linkedin">LinkedIn</span>
       </div>
@@ -1402,26 +1408,26 @@
       <div class="audience-card fade-in">
         <div class="aud-icon">💼</div>
         <div class="aud-name">Inversionistas Retail</div>
-        <div class="aud-stat">
+        <div class="aud-stat" data-metric="alcance">
           <div class="a-label">Alcance</div>
-          <div class="a-value" data-counter="257456" data-format="number">0</div>
+          <div class="a-value" data-counter="257456" data-format="number" data-raw="257456">0</div>
         </div>
-        <div class="aud-stat">
+        <div class="aud-stat" data-metric="impresiones">
           <div class="a-label">Impresiones</div>
-          <div class="a-value" data-counter="313311" data-format="number">0</div>
+          <div class="a-value" data-counter="313311" data-format="number" data-raw="313311">0</div>
         </div>
-        <div class="aud-stat">
+        <div class="aud-stat" data-metric="cpm">
           <div class="a-label">CPM</div>
-          <div class="a-value">$214</div>
+          <div class="a-value" data-raw="214">$214</div>
         </div>
         <div class="aud-stat">
           <div class="a-label">Frecuencia</div>
           <div class="a-value">1.2x</div>
           <div class="a-sub">por persona</div>
         </div>
-        <div class="aud-stat">
+        <div class="aud-stat" data-metric="sesiones">
           <div class="a-label">Sesiones web</div>
-          <div class="a-value" data-counter="187" data-format="number">0</div>
+          <div class="a-value" data-counter="187" data-format="number" data-raw="187">0</div>
         </div>
         <span class="aud-tag tag-meta">Meta</span>
       </div>
@@ -1429,26 +1435,26 @@
       <div class="audience-card fade-in">
         <div class="aud-icon">📈</div>
         <div class="aud-name">Interés ETF</div>
-        <div class="aud-stat">
+        <div class="aud-stat" data-metric="alcance">
           <div class="a-label">Alcance</div>
-          <div class="a-value" data-counter="21697" data-format="number">0</div>
+          <div class="a-value" data-counter="21697" data-format="number" data-raw="21697">0</div>
         </div>
-        <div class="aud-stat">
+        <div class="aud-stat" data-metric="impresiones">
           <div class="a-label">Impresiones</div>
-          <div class="a-value" data-counter="24512" data-format="number">0</div>
+          <div class="a-value" data-counter="24512" data-format="number" data-raw="24512">0</div>
         </div>
-        <div class="aud-stat">
+        <div class="aud-stat" data-metric="cpm">
           <div class="a-label">CPM</div>
-          <div class="a-value">$222</div>
+          <div class="a-value" data-raw="222">$222</div>
         </div>
         <div class="aud-stat">
           <div class="a-label">Frecuencia</div>
           <div class="a-value">1.1x</div>
           <div class="a-sub">por persona</div>
         </div>
-        <div class="aud-stat">
+        <div class="aud-stat" data-metric="sesiones">
           <div class="a-label">Sesiones web</div>
-          <div class="a-value" data-counter="17" data-format="number">0</div>
+          <div class="a-value" data-counter="17" data-format="number" data-raw="17">0</div>
         </div>
         <span class="aud-tag tag-meta">Meta</span>
       </div>
@@ -1799,6 +1805,28 @@ function initCharts() {
   });
 }
 
+// ── AUDIENCE WINNERS ──
+function highlightAudienceWinners() {
+  const metrics     = ['alcance', 'impresiones', 'sesiones'];
+  const metricsLow  = ['cpm'];
+
+  [...metrics, ...metricsLow].forEach(metric => {
+    const isLow = metricsLow.includes(metric);
+    const stats = document.querySelectorAll(`.aud-stat[data-metric="${metric}"]`);
+    let bestVal = isLow ? Infinity : -Infinity;
+    let bestStat = null;
+
+    stats.forEach(stat => {
+      const valEl = stat.querySelector('.a-value');
+      const raw   = parseFloat(valEl.dataset.raw);
+      if (isNaN(raw)) return;
+      if (isLow ? raw < bestVal : raw > bestVal) { bestVal = raw; bestStat = stat; }
+    });
+
+    if (bestStat) bestStat.classList.add(isLow ? 'stat-winner-low' : 'stat-winner');
+  });
+}
+
 // ── CAMPAIGN PROGRESS (dinámico por fecha) ──
 (function initCampaignProgress() {
   const CAMPAIGN_START = new Date('2026-03-24T00:00:00');
@@ -1832,6 +1860,11 @@ triggerAnimations();
 // Init charts when performance tab opens
 document.querySelector('[data-tab="performance"]').addEventListener('click', () => {
   setTimeout(initCharts, 100);
+});
+
+// Highlight audience winners when tab opens (also run on init)
+document.querySelector('[data-tab="audiencias"]').addEventListener('click', () => {
+  setTimeout(highlightAudienceWinners, 150);
 });
 
 // ── PDF DOWNLOAD ──
