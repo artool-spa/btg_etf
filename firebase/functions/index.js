@@ -296,10 +296,13 @@ async function runSync(startOverride = null, endOverride = null) {
 // ─────────────────────────────────────────────
 // RECALCULATE CUMULATIVE TOTALS
 // ─────────────────────────────────────────────
+const CAMPAIGN_START_DATE = '2026-03-23'; // inicio de campaña ETF Genérico
+
 async function recalcAggregates() {
   const snap = await db
     .collection('campaigns').doc('etf-generico')
     .collection('weeks')
+    .where('start_date', '>=', CAMPAIGN_START_DATE)
     .orderBy('start_date', 'asc')
     .get();
 
