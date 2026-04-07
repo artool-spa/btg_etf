@@ -1156,18 +1156,18 @@
       </div>
     </div>
 
-    <p class="section-title">Distribución de presupuesto semanal</p>
+    <p class="section-title">Distribución de presupuesto · 23 Mar – 05 Abr</p>
     <div class="grid-charts">
       <div class="chart-card fade-in">
         <h3>Inversión por plataforma</h3>
-        <p>$369.341 Artool · $1.423.451 Havas — 60% del presupuesto mensual</p>
+        <p>Inversión acumulada Artool · 23 Mar – 05 Abr</p>
         <div class="chart-wrap" style="max-height:240px">
           <canvas id="chartDonut"></canvas>
         </div>
       </div>
       <div class="chart-card fade-in">
         <h3>Alcance e Impresiones por plataforma</h3>
-        <p>Distribución de volumen de la semana</p>
+        <p>Distribución de volumen acumulado · 23 Mar – 05 Abr</p>
         <div class="chart-wrap" style="max-height:240px">
           <canvas id="chartBar"></canvas>
         </div>
@@ -1769,9 +1769,9 @@ function initCharts() {
   new Chart(document.getElementById('chartDonut'), {
     type: 'doughnut',
     data: {
-      labels: ['Meta ($72.628)', 'LinkedIn ($151.214)', 'Search ($74.682)'],
+      labels: ['Meta ($230.545)', 'LinkedIn ($423.585)', 'Search ($138.796)'],
       datasets: [{
-        data: [72628, 151214, 74682],
+        data: [230545, 423585, 138796],
         backgroundColor: btgAlpha,
         borderColor: '#fff',
         borderWidth: 3,
@@ -1800,13 +1800,13 @@ function initCharts() {
       datasets: [
         {
           label: 'Alcance',
-          data: [272287, 46474, 0],
+          data: [621601, 248061, 0],
           backgroundColor: 'rgba(0,66,165,0.8)',
           borderRadius: 6
         },
         {
           label: 'Impresiones',
-          data: [337823, 129158, 2452],
+          data: [864557, 572873, 6428],
           backgroundColor: 'rgba(21,101,192,0.5)',
           borderRadius: 6
         }
