@@ -65,9 +65,10 @@ async function runSync(startOverride = null, endOverride = null) {
 
   // Nombres de campaña a filtrar
   const CAMPAIGN_GOOGLE_ADS = '[BTG] (BTG Corp) - Search Tráfico Fondo ETF Genérico';
+  const LANDING_PATH        = '/que-hacemos/asset-management/etf';
 
   // ── 1. Adquisición de tráfico por campaña y fuente/medio ──
-  // Filtro: campañas que contienen "btg_etf" + campaña exacta de Google Ads
+  // Filtro: (campaña btg_etf OR Google Ads) AND landingPage = ETF
   const [acqResp] = await client.runReport({
     property,
     dateRanges,
@@ -81,18 +82,30 @@ async function runSync(startOverride = null, endOverride = null) {
       { name: 'averageSessionDuration' },
     ],
     dimensionFilter: {
-      orGroup: {
+      andGroup: {
         expressions: [
           {
-            filter: {
-              fieldName: 'sessionCampaignName',
-              stringFilter: { matchType: 'CONTAINS', value: 'btg_etf' },
+            orGroup: {
+              expressions: [
+                {
+                  filter: {
+                    fieldName: 'sessionCampaignName',
+                    stringFilter: { matchType: 'CONTAINS', value: 'btg_etf' },
+                  },
+                },
+                {
+                  filter: {
+                    fieldName: 'sessionCampaignName',
+                    stringFilter: { matchType: 'EXACT', value: CAMPAIGN_GOOGLE_ADS },
+                  },
+                },
+              ],
             },
           },
           {
             filter: {
-              fieldName: 'sessionCampaignName',
-              stringFilter: { matchType: 'EXACT', value: CAMPAIGN_GOOGLE_ADS },
+              fieldName: 'landingPage',
+              stringFilter: { matchType: 'CONTAINS', value: LANDING_PATH },
             },
           },
         ],
@@ -149,7 +162,7 @@ async function runSync(startOverride = null, endOverride = null) {
     ? fmtDuration(String(totalDurSec / total_sessions))
     : '00:00';
 
-  // ── 2. Orgánico y Directo ──
+  // ── 2. Orgánico y Directo — filtrado al mismo landing ──
   const [otherResp] = await client.runReport({
     property,
     dateRanges,
@@ -160,10 +173,22 @@ async function runSync(startOverride = null, endOverride = null) {
       { name: 'averageSessionDuration' },
     ],
     dimensionFilter: {
-      orGroup: {
+      andGroup: {
         expressions: [
-          { filter: { fieldName: 'sessionSourceMedium', stringFilter: { matchType: 'CONTAINS', value: 'organic' } } },
-          { filter: { fieldName: 'sessionSourceMedium', stringFilter: { matchType: 'EXACT',    value: '(direct) / (none)' } } },
+          {
+            orGroup: {
+              expressions: [
+                { filter: { fieldName: 'sessionSourceMedium', stringFilter: { matchType: 'CONTAINS', value: 'organic' } } },
+                { filter: { fieldName: 'sessionSourceMedium', stringFilter: { matchType: 'EXACT',    value: '(direct) / (none)' } } },
+              ],
+            },
+          },
+          {
+            filter: {
+              fieldName: 'landingPage',
+              stringFilter: { matchType: 'CONTAINS', value: LANDING_PATH },
+            },
+          },
         ],
       },
     },
@@ -176,7 +201,7 @@ async function runSync(startOverride = null, endOverride = null) {
     avg_duration:  fmtDuration(row.metricValues[2]?.value),
   }));
 
-  // ── 3. Botón "Ver Fondo" clicks (eventos dentro de las campañas ETF) ──
+  // ── 3. Botón "Ver Fondo" clicks — campañas ETF en el landing ──
   const [eventsResp] = await client.runReport({
     property,
     dateRanges,
@@ -205,6 +230,12 @@ async function runSync(startOverride = null, endOverride = null) {
                   },
                 },
               ],
+            },
+          },
+          {
+            filter: {
+              fieldName: 'landingPage',
+              stringFilter: { matchType: 'CONTAINS', value: LANDING_PATH },
             },
           },
         ],
