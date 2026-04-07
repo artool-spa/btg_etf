@@ -103,9 +103,10 @@
 
       // ── Lectura ejecutiva dinámica ──
       const dur     = week.total_avg_duration || '—';
-      const imp     = 933944;
-      const alc     = 533761;
-      const clics   = 1453;
+      const imp     = 2356779;
+      const alc     = 1134662;
+      const clics   = 1794;
+      const views   = 147348;
       const frec    = (imp / alc).toFixed(2);
       const pctImp  = ((imp / 5000000)  * 100).toFixed(1);
       const pctAlc  = ((alc / 1800000)  * 100).toFixed(1);
@@ -117,9 +118,9 @@
         — avance del <strong>${pctImp}%</strong> y <strong>${pctAlc}%</strong> sobre las metas del mes.
         La <strong>frecuencia promedio es ${frec}</strong> impactos por persona (meta 2.7), y la
         <strong>duración media de ${dur} en landing</strong> refleja un alto nivel de intención e interés genuino en los ETF.
-        Con <strong>${fmtN(clics)} clics totales</strong>, Meta lidera en volumen, DF Digital y Emol amplían la cobertura editorial,
+        Con <strong>${fmtN(clics)} clics</strong> y <strong>${fmtN(views)} views de video</strong>, Meta lidera en volumen, DF Digital y Emol amplían la cobertura editorial,
         y LinkedIn garantiza la llegada al <strong>perfil inversor profesional</strong>.
-        El ritmo actual proyecta una cobertura del <strong>75%–100%+ de las metas mensuales</strong> de impresiones y alcance al final del mes.
+        El ritmo actual proyecta una cobertura del <strong>100%+ en impresiones y alcance</strong>, y un <strong>78% en sesiones de landing</strong> al cierre del mes.
       `;
       set('ga4-sesiones-acum',   fmt(summary.sessions_acum));
       set('ga4-usuarios-acum',   fmt(summary.users_acum));
