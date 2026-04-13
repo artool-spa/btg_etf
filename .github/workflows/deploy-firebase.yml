@@ -1,4 +1,4 @@
-name: Deploy Firebase Functions
+name: Deploy Firebase
 
 on:
   push:
@@ -6,6 +6,7 @@ on:
       - main
     paths:
       - 'firebase/**'
+      - 'public/**'
 
 jobs:
   deploy:
@@ -27,10 +28,10 @@ jobs:
         run: npm ci
         working-directory: firebase/functions
 
-      - name: Deploy Firebase Functions
+      - name: Deploy Firebase Functions & Hosting
         uses: w9jds/firebase-action@master
         with:
-          args: deploy --only functions
+          args: deploy --only functions,hosting
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
           PROJECT_PATH: ./firebase
