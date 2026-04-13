@@ -8,7 +8,6 @@
     "indexes": "firestore.indexes.json"
   },
   "hosting": {
-    "site": "btg---etf",
     "public": "../public",
     "ignore": [
       "firebase.json",
