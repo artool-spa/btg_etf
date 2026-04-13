@@ -1,11 +1,15 @@
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
-    // Only server-side (Firebase Admin SDK) can write
-    // Read access requires authentication
+    // Deny-all por defecto — cualquier path no listado es inaccesible
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // Campañas: solo lectura autenticada, escritura solo via Admin SDK
     match /campaigns/{campaignId}/{document=**} {
       allow read: if request.auth != null;
-      allow write: if false; // Only via Admin SDK (Cloud Functions)
+      allow write: if false;
     }
   }
 }

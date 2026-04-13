@@ -73,20 +73,18 @@
     }
 
     // ── CARGAR DATOS GA4 DESDE FIRESTORE ──
-    // Carga siempre el documento del período completo de campaña (start = 2026-03-23)
-    const CAMPAIGN_DOC_ID = '2026-03-23_2026-04-06';
+    // Carga automáticamente el período más reciente disponible en Firestore
 
     async function loadGA4Data() {
       try {
-        const weekSnap = await getDoc(
-          doc(db, 'campaigns', 'etf-generico', 'weeks', CAMPAIGN_DOC_ID)
-        );
-        if (!weekSnap.exists()) {
-          console.warn('GA4: documento de período no encontrado:', CAMPAIGN_DOC_ID);
+        const weeksRef = collection(db, 'campaigns', 'etf-generico', 'weeks');
+        const latestQuery = query(weeksRef, orderBy('start_date', 'desc'), limit(1));
+        const latestSnap = await getDocs(latestQuery);
+        if (latestSnap.empty) {
+          console.warn('GA4: no hay semanas en Firestore');
           return;
         }
-
-        renderGA4(weekSnap.data(), {});
+        renderGA4(latestSnap.docs[0].data(), {});
       } catch (e) {
         console.error('Error GA4:', e);
       }

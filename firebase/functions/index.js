@@ -2,6 +2,7 @@ const { onSchedule }   = require('firebase-functions/v2/scheduler');
 const { onRequest }    = require('firebase-functions/v2/https');
 const { defineSecret } = require('firebase-functions/params');
 const { initializeApp } = require('firebase-admin/app');
+const { getAuth } = require('firebase-admin/auth');
 const { getFirestore, FieldValue } = require('firebase-admin/firestore');
 const { BetaAnalyticsDataClient } = require('@google-analytics/data');
 
@@ -35,6 +36,16 @@ exports.syncGA4Weekly = onSchedule(
 exports.syncGA4Manual = onRequest(
   { secrets: [GA4_PROPERTY_ID], region: 'us-central1' },
   async (req, res) => {
+    // Verificar Firebase ID Token
+    const authHeader = req.headers.authorization || '';
+    const token = authHeader.startsWith('Bearer ') ? authHeader.slice(7) : null;
+    if (!token) return res.status(401).json({ error: 'Unauthorized' });
+    try {
+      await getAuth().verifyIdToken(token);
+    } catch (e) {
+      return res.status(403).json({ error: 'Forbidden' });
+    }
+
     const start = req.query.start || null;
     const end   = req.query.end   || null;
     try {
