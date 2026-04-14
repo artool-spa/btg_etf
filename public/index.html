@@ -632,13 +632,18 @@
     .aud-stat .a-label { font-size: 10px; text-transform: uppercase; letter-spacing: 0.8px; color: var(--text-muted); font-weight: 600; }
     .aud-stat .a-value { font-size: 18px; font-weight: 800; color: var(--btg-dark); letter-spacing: -0.5px; }
     .aud-stat .a-sub   { font-size: 11px; color: var(--text-muted); }
-    .aud-tag {
-      display: inline-block; margin-top: 10px;
-      font-size: 10px; font-weight: 600;
-      padding: 3px 8px; border-radius: 6px;
+    .aud-card-header {
+      display: flex; justify-content: space-between; align-items: flex-start;
+      margin-bottom: 10px;
     }
-    .tag-linkedin { background: #E7F4FF; color: #0A66C2; }
-    .tag-meta     { background: #E7F0FF; color: #1877F2; }
+    .aud-card-header .aud-icon { margin-bottom: 0; }
+    .aud-tag {
+      display: inline-flex; align-items: center; gap: 4px;
+      font-size: 10px; font-weight: 700; letter-spacing: 0.3px;
+      padding: 4px 9px; border-radius: 20px;
+    }
+    .tag-linkedin { background: #E7F4FF; color: #0A66C2; border: 1px solid #C4DFF7; }
+    .tag-meta     { background: #E7F0FF; color: #1877F2; border: 1px solid #C3D3F7; }
     .stat-winner .a-label { color: var(--btg-green); font-weight: 700; }
     .stat-winner .a-value { color: var(--btg-green) !important; font-weight: 900; }
     .stat-winner .a-value::after { content: ' ↑'; font-size: 11px; font-weight: 700; }
@@ -1382,7 +1387,10 @@
     <div class="grid-6">
 
       <div class="audience-card fade-in">
-        <div class="aud-icon">🏦</div>
+        <div class="aud-card-header">
+          <div class="aud-icon">🏦</div>
+          <span class="aud-tag tag-linkedin">LinkedIn</span>
+        </div>
         <div class="aud-name">Banca Privada</div>
         <div class="aud-stat" data-metric="alcance">
           <div class="a-label">Alcance</div>
@@ -1405,11 +1413,13 @@
           <div class="a-label">Sesiones web</div>
           <div class="a-value" data-counter="871" data-format="number" data-raw="871">0</div>
         </div>
-        <span class="aud-tag tag-linkedin">LinkedIn</span>
       </div>
 
       <div class="audience-card fade-in">
-        <div class="aud-icon">👔</div>
+        <div class="aud-card-header">
+          <div class="aud-icon">👔</div>
+          <span class="aud-tag tag-linkedin">LinkedIn</span>
+        </div>
         <div class="aud-name">Altos Cargos</div>
         <div class="aud-stat" data-metric="alcance">
           <div class="a-label">Alcance</div>
@@ -1432,11 +1442,13 @@
           <div class="a-label">Sesiones web</div>
           <div class="a-value" data-counter="609" data-format="number" data-raw="609">0</div>
         </div>
-        <span class="aud-tag tag-linkedin">LinkedIn</span>
       </div>
 
       <div class="audience-card fade-in">
-        <div class="aud-icon">📊</div>
+        <div class="aud-card-header">
+          <div class="aud-icon">📊</div>
+          <span class="aud-tag tag-linkedin">LinkedIn</span>
+        </div>
         <div class="aud-name">Asset Management</div>
         <div class="aud-stat" data-metric="alcance">
           <div class="a-label">Alcance</div>
@@ -1459,11 +1471,13 @@
           <div class="a-label">Sesiones web</div>
           <div class="a-value" data-counter="375" data-format="number" data-raw="375">0</div>
         </div>
-        <span class="aud-tag tag-linkedin">LinkedIn</span>
       </div>
 
       <div class="audience-card fade-in">
-        <div class="aud-icon">💼</div>
+        <div class="aud-card-header">
+          <div class="aud-icon">💼</div>
+          <span class="aud-tag tag-meta">Meta</span>
+        </div>
         <div class="aud-name">Inversionistas Retail</div>
         <div class="aud-stat" data-metric="alcance">
           <div class="a-label">Alcance</div>
@@ -1486,11 +1500,13 @@
           <div class="a-label">Sesiones web</div>
           <div class="a-value" data-counter="441" data-format="number" data-raw="441">0</div>
         </div>
-        <span class="aud-tag tag-meta">Meta</span>
       </div>
 
       <div class="audience-card fade-in">
-        <div class="aud-icon">📈</div>
+        <div class="aud-card-header">
+          <div class="aud-icon">📈</div>
+          <span class="aud-tag tag-meta">Meta</span>
+        </div>
         <div class="aud-name">Interés ETF</div>
         <div class="aud-stat" data-metric="alcance">
           <div class="a-label">Alcance</div>
@@ -1513,11 +1529,13 @@
           <div class="a-label">Sesiones web</div>
           <div class="a-value" data-counter="216" data-format="number" data-raw="216">0</div>
         </div>
-        <span class="aud-tag tag-meta">Meta</span>
       </div>
 
       <div class="audience-card fade-in">
-        <div class="aud-icon">💎</div>
+        <div class="aud-card-header">
+          <div class="aud-icon">💎</div>
+          <span class="aud-tag tag-meta">Meta</span>
+        </div>
         <div class="aud-name">Alto Patrimonio</div>
         <div class="aud-stat" data-metric="alcance">
           <div class="a-label">Alcance</div>
@@ -1540,7 +1558,6 @@
           <div class="a-label">Sesiones web</div>
           <div class="a-value" data-counter="202" data-format="number" data-raw="202">0</div>
         </div>
-        <span class="aud-tag tag-meta">Meta</span>
       </div>
 
     </div>
