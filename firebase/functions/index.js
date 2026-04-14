@@ -33,17 +33,25 @@ exports.syncGA4Weekly = onSchedule(
 // HTTP: manual trigger (for testing / backfill)
 // POST /syncGA4Manual?start=2025-03-23&end=2025-03-29
 // ─────────────────────────────────────────────
+const SYNC_SECRET = defineSecret('SYNC_SECRET');
+
 exports.syncGA4Manual = onRequest(
-  { secrets: [GA4_PROPERTY_ID], region: 'us-central1' },
+  { secrets: [GA4_PROPERTY_ID, SYNC_SECRET], region: 'us-central1' },
   async (req, res) => {
-    // Verificar Firebase ID Token
-    const authHeader = req.headers.authorization || '';
-    const token = authHeader.startsWith('Bearer ') ? authHeader.slice(7) : null;
-    if (!token) return res.status(401).json({ error: 'Unauthorized' });
-    try {
-      await getAuth().verifyIdToken(token);
-    } catch (e) {
-      return res.status(403).json({ error: 'Forbidden' });
+    // Verificar Firebase ID Token O SYNC_SECRET
+    const syncSecret = SYNC_SECRET.value();
+    const reqSecret  = req.query.secret || '';
+    if (syncSecret && reqSecret === syncSecret) {
+      // bypass por clave secreta (uso admin/CLI)
+    } else {
+      const authHeader = req.headers.authorization || '';
+      const token = authHeader.startsWith('Bearer ') ? authHeader.slice(7) : null;
+      if (!token) return res.status(401).json({ error: 'Unauthorized' });
+      try {
+        await getAuth().verifyIdToken(token);
+      } catch (e) {
+        return res.status(403).json({ error: 'Forbidden' });
+      }
     }
 
     const start = req.query.start || null;
