@@ -75,6 +75,19 @@
       document.getElementById('user-avatar').textContent = name.charAt(0).toUpperCase();
     }
 
+    // ── Mapeo global de nombres de fuentes ──
+    const SOURCE_NAMES = {
+      'linkedin':       'LinkedIn',
+      'meta_platform':  'Meta',
+      'biobio':         'BioBio',
+      'money_talks':    'Money Talks',
+      'emol':           'Emol',
+      'sidebar_ML':     'MercadoLibre',
+      'df':             'DF Digital',
+      'instagram':      'Instagram',
+      'CNN':            'CNN Chile',
+    };
+
     // ── CARGAR DATOS GA4 DESDE FIRESTORE ──
     // Carga automáticamente el período más reciente disponible en Firestore
 
@@ -251,17 +264,6 @@
         const CAMP_LABELS = {
           'btg_etf_generico_2026_alcance': 'Alcance Paid Social',
           'btg_etf_generico_2026':         'Display / Medios',
-        };
-        const SOURCE_NAMES = {
-          'linkedin':       'LinkedIn',
-          'meta_platform':  'Meta',
-          'biobio':         'BioBio',
-          'money_talks':    'Money Talks',
-          'emol':           'Emol',
-          'sidebar_ML':     'MercadoLibre',
-          'df':             'DF Digital',
-          'instagram':      'Instagram',
-          'CNN':            'CNN Chile',
         };
         const visible = week.campaigns.filter(c => c.name !== 'btg_etf_usa_landing');
         container.innerHTML = visible.map(c => {
