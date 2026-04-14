@@ -112,13 +112,12 @@
       const fmtN    = n => n.toLocaleString('es-CL');
       const lectura = document.getElementById('lectura-ejecutiva');
       if (lectura) lectura.innerHTML = `
-        En el período 23 Mar – 12 Abr, ETF Genérico acumula <strong>${fmtN(alc)} personas alcanzadas</strong> y
-        <strong>${fmtN(imp)} impresiones</strong> combinando Artool y Havas
-        — superando el <strong>${pctImp}%</strong> de la meta de impresiones y el <strong>${pctAlc}%</strong> de la meta de alcance mensual.
-        La <strong>duración media de ${dur} en landing</strong> refleja un alto nivel de intención e interés genuino en los ETF.
-        Con <strong>${fmtN(clics)} clics</strong> y <strong>${fmtN(views)} video views</strong>, Meta lidera en volumen, DF Digital y Emol amplían la cobertura editorial,
-        y LinkedIn garantiza la llegada al <strong>perfil inversor profesional</strong> con 19 registros directos.
-        Las nuevas incorporaciones La Tercera y CNN suman <strong>3.100.000 impresiones adicionales</strong> en medios de alta credibilidad.
+        <ul style="padding-left:18px;line-height:2">
+          <li><strong>${fmtN(alc)} personas alcanzadas</strong> y <strong>${fmtN(imp)} impresiones</strong> — ${pctAlc}% y ${pctImp}% de meta mensual.</li>
+          <li><strong>${fmtN(clics)} clics</strong> y <strong>${fmtN(views)} video views</strong> · duración media <strong>${dur}</strong> en landing.</li>
+          <li><strong>Meta</strong> lidera volumen (CPM $268) · <strong>LinkedIn</strong> llega al perfil inversor con 19 registros directos.</li>
+          <li><strong>Medios Havas</strong> amplían cobertura editorial · La Tercera y CNN suman 3.1M impresiones adicionales.</li>
+        </ul>
       `;
       set('ga4-sesiones-acum',   fmt(summary.sessions_acum));
       set('ga4-usuarios-acum',   fmt(summary.users_acum));
@@ -1054,12 +1053,12 @@
 
     <p class="section-title" style="margin-top:36px">Lectura ejecutiva</p>
     <div class="insight-box fade-in">
-      <p id="lectura-ejecutiva">
-        En los primeros 20 días de campaña, ETF Genérico acumula <strong>1.521.734 personas alcanzadas</strong> y <strong>10.166.381 impresiones</strong> combinando Artool y Havas — superando el 203% de la meta de impresiones y el 84% de la meta de alcance mensual.
-        Los <strong>3.469 clics totales</strong> y <strong>357.239 video views</strong> reflejan un alto nivel de interés genuino en los ETF, impulsado principalmente por LinkedIn.
-        Meta lidera en volumen al menor CPM (<strong>$268</strong>), LinkedIn garantiza la llegada al <strong>perfil inversor profesional</strong> con 19 registros directos, y los medios Havas amplían masivamente la cobertura editorial.
-        Las nuevas incorporaciones La Tercera y CNN suman <strong>3.100.000 impresiones adicionales</strong> en medios de alta credibilidad financiera.
-      </p>
+      <ul id="lectura-ejecutiva" style="padding-left:18px;line-height:2">
+        <li><strong>1.521.734 personas alcanzadas</strong> y <strong>10.166.381 impresiones</strong> — 84.5% y 203% de meta mensual.</li>
+        <li><strong>3.469 clics</strong> y <strong>357.239 video views</strong> · duración media <strong>00:34</strong> en landing.</li>
+        <li><strong>Meta</strong> lidera volumen (CPM $268) · <strong>LinkedIn</strong> llega al perfil inversor con 19 registros directos.</li>
+        <li><strong>Medios Havas</strong> amplían cobertura editorial · La Tercera y CNN suman 3.1M impresiones adicionales.</li>
+      </ul>
     </div>
 
   </section>
