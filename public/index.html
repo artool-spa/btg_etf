@@ -78,14 +78,16 @@
 
     async function loadGA4Data() {
       try {
-        const weeksRef = collection(db, 'campaigns', 'etf-generico', 'weeks');
+        const campaignRef = doc(db, 'campaigns', 'etf-generico');
+        const weeksRef    = collection(db, 'campaigns', 'etf-generico', 'weeks');
         const latestQuery = query(weeksRef, orderBy('start_date', 'desc'), limit(1));
-        const latestSnap = await getDocs(latestQuery);
+        const [campaignSnap, latestSnap] = await Promise.all([getDoc(campaignRef), getDocs(latestQuery)]);
         if (latestSnap.empty) {
           console.warn('GA4: no hay semanas en Firestore');
           return;
         }
-        renderGA4(latestSnap.docs[0].data(), {});
+        const summary = campaignSnap.exists() ? campaignSnap.data() : {};
+        renderGA4(latestSnap.docs[0].data(), summary);
       } catch (e) {
         console.error('Error GA4:', e);
       }

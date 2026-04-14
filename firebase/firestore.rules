@@ -6,9 +6,9 @@ service cloud.firestore {
       allow read, write: if false;
     }
 
-    // Campañas: solo lectura autenticada, escritura solo via Admin SDK
+    // Campañas: lectura pública (dashboard de cliente), escritura solo via Admin SDK
     match /campaigns/{campaignId}/{document=**} {
-      allow read: if request.auth != null;
+      allow read: if true;
       allow write: if false;
     }
   }
