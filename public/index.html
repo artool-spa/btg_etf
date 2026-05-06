@@ -2238,8 +2238,8 @@ async function downloadPDF() {
 
   try {
     const { jsPDF } = window.jspdf;
-    const tabs   = ['resumen', 'performance', 'otros', 'audiencias', 'ga4'];
-    const labels = ['Resumen', 'Paid Social · Artool', 'Otros Medios · Havas', 'Audiencias', 'GA4 & Analytics'];
+    const tabs   = ['resumen', 'performance', 'otros', 'audiencias'];
+    const labels = ['Resumen', 'Paid Social · Artool', 'Otros Medios · Havas', 'Audiencias'];
 
     // Save current state
     const prevSection = document.querySelector('.section.active')?.id || 'section-resumen';
